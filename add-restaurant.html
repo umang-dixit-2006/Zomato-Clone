@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Restaurant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: #fff7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 32px 28px;
+        }
+        
+        h2 {
+            text-align: center;
+            color: #e23744;
+            margin-bottom: 28px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 18px;
+            border: 1.5px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus,
+        textarea:focus {
+            border-color: #e23744;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            background: #e23744;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #b81c2b;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            color: #27ae60;
+            font-weight: 600;
+            margin-top: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Add Restaurant</h2>
+        <form id="addRestaurantForm">
+            <label for="name">Restaurant Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="2" required></textarea>
+
+            <label for="cuisine">Cuisine Type</label>
+            <input type="text" id="cuisine" name="cuisine" required>
+
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required placeholder="10-digit number">
+
+            <button type="submit">Add Restaurant</button>
+        </form>
+        <div class="success-message" id="successMsg">
+            Restaurant added successfully!
+        </div>
+    </div>
+    <script>
+        document.getElementById('addRestaurantForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Optionally, you can collect form data here
+            document.getElementById('successMsg').style.display = 'block';
+            this.reset();
+            setTimeout(() => {
+                document.getElementById('successMsg').style.display = 'none';
+            }, 2500);
+        });
