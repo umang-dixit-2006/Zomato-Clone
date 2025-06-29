@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Online | Zomato Clone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fff7f7;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background: #e23744;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 45px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+        
+        .hero-section {
+            background: #fff;
+            padding: 40px 0 20px 0;
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            color: #e23744;
+            margin-bottom: 10px;
+        }
+        
+        .hero-section input {
+            width: 60%;
+            max-width: 400px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .hero-section input:focus {
+            border-color: #e23744;
+        }
+        
+        .restaurant-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            padding: 30px 10px 60px 10px;
+        }
+        
+        .restaurant-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            width: 270px;
+            padding: 22px 18px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .restaurant-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+        }
+        
+        .restaurant-card h3 {
+            color: #e23744;
+            margin-bottom: 8px;
+            font-size: 1.15rem;
+        }
+        
+        .restaurant-card p {
+            color: #555;
+            font-size: 0.97rem;
+            margin-bottom: 8px;
+        }
+        
+        .order-btn {
+            background: #e23744;
+            color: #fff;
+            border: none;
+            padding: 9px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .order-btn:hover {
+            background: #b81c2b;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f8f8;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<!-- Add this inside your <body> tag, preferably just before </body> -->
+<!-- Log In Modal Popup -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeLogin">&times;</span>
+        <h2>Log In</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" required>
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" required>
+            <button type="submit">Log In</button>
+        </form>
+        <div id="loginMsg" class="login-message"></div>
+    </div>
+</div>
+
+<style>
+    /* Modal Styles */
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1001;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .modal-content {
+        background: #fff;
+        padding: 32px 28px 24px 28px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 350px;
+        position: relative;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+        animation: popIn 0.25s;
+    }
+    
+    @keyframes popIn {
+        from {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+    
+    .close-btn {
+        position: absolute;
+        right: 18px;
+        top: 12px;
+        font-size: 1.6rem;
+        color: #e23744;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .modal-content h2 {
+        color: #e23744;
+        text-align: center;
+        margin-bottom: 18px;
+    }
+    
+    .modal-content label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .modal-content input {
+        width: 100%;
+        padding: 9px 10px;
+        margin-bottom: 16px;
+        border: 1.5px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+    
+    .modal-content input:focus {
+        border-color: #e23744;
+        outline: none;
+    }
+    
+    .modal-content button {
+        width: 100%;
+        background: #e23744;
+        color: #fff;
+        border: none;
+        padding: 11px;
+        font-size: 1.05rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+    
+    .modal-content button:hover {
+        background: #b81c2b;
+    }
+    
+    .login-message {
+        text-align: center;
+        color: #27ae60;
+        margin-top: 10px;
+        font-weight: 500;
+        display: none;
+    }
+</style>
+
+<script>
+    // Show modal when "Log In" link is clicked
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginModal = document.getElementById('loginModal');
+        const closeBtn = document.getElementById('closeLogin');
+        const loginLinks = Array.from(document.querySelectorAll('a')).filter(a => a.textContent.trim() === 'Log In');
+        const loginForm = document.getElementById('loginForm');
+        const loginMsg = document.getElementById('loginMsg');
+
+        // Open modal
+        loginLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        closeBtn.onclick = function() {
+            loginModal.style.display = 'none';
+            loginMsg.style.display = 'none';
+            loginForm.reset();
+        };
+        // Close when clicking outside modal content
+        window.onclick = function(event) {
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+                loginMsg.style.display = 'none';
+                loginForm.reset();
+            }
+        };
+
+        // Handle login form submit
+        loginForm.onsubmit = function(e) {
+            e.preventDefault();
+            loginMsg.textContent = "Logged in successfully!";
+            loginMsg.style.display = 'block';
+            setTimeout(() => {
+                loginModal.style.display = 'none';
+                loginMsg.style.display = 'none';
+                loginForm.reset();
+            }, 1500);
+        };
+    });
+</script>
+<!-- Sign Up Modal Popup -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeSignup">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <label for="signupName">Full Name</label>
+            <input type="text" id="signupName" required>
+
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" required>
+
+            <label for="signupPhone">Phone Number</label>
+            <input type="tel" id="signupPhone" pattern="[0-9]{10}" required placeholder="10-digit number">
+
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" required minlength="6">
+
+            <label for="signupConfirm">Confirm Password</label>
+            <input type="password" id="signupConfirm" required minlength="6">
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div id="signupMsg" class="signup-message"></div>
+    </div>
+</div>
+
+<style>
+    /* Sign Up Modal Styles */
+    
+    #signupModal.modal {
+        display: none;
+        position: fixed;
+        z-index: 1002;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #signupModal .modal-content {
+        background: #fff;
+        padding: 32px 28px 24px 28px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 370px;
+        position: relative;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+        animation: popIn 0.25s;
+    }
+    
+    #signupModal .close-btn {
+        position: absolute;
+        right: 18px;
+        top: 12px;
+        font-size: 1.6rem;
+        color: #e23744;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    #signupModal h2 {
+        color: #e23744;
+        text-align: center;
+        margin-bottom: 18px;
+    }
+    
+    #signupModal label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    #signupModal input {
+        width: 100%;
+        padding: 9px 10px;
+        margin-bottom: 16px;
+        border: 1.5px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+    }
+    
+    #signupModal input:focus {
+        border-color: #e23744;
+        outline: none;
+    }
+    
+    #signupModal button {
+        width: 100%;
+        background: #e23744;
+        color: #fff;
+        border: none;
+        padding: 11px;
+        font-size: 1.05rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.2s;
+    }
+    
+    #signupModal button:hover {
+        background: #b81c2b;
+    }
+    
+    .signup-message {
+        text-align: center;
+        color: #27ae60;
+        margin-top: 10px;
+        font-weight: 500;
+        display: none;
+    }
+</style>
+
+<script>
+    // Sign Up Modal Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const signupModal = document.getElementById('signupModal');
+        const closeSignup = document.getElementById('closeSignup');
+        const signupLinks = Array.from(document.querySelectorAll('a')).filter(a => a.textContent.trim() === 'Sign Up');
+        const signupForm = document.getElementById('signupForm');
+        const signupMsg = document.getElementById('signupMsg');
+
+        // Open modal
+        signupLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        closeSignup.onclick = function() {
+            signupModal.style.display = 'none';
+            signupMsg.style.display = 'none';
+            signupForm.reset();
+        };
+        // Close when clicking outside modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === signupModal) {
+                signupModal.style.display = 'none';
+                signupMsg.style.display = 'none';
+                signupForm.reset();
+            }
+        });
+
+        // Handle sign up form submit
+        signupForm.onsubmit = function(e) {
+            e.preventDefault();
+            const pwd = document.getElementById('signupPassword').value;
+            const confirm = document.getElementById('signupConfirm').value;
+            if (pwd !== confirm) {
+                signupMsg.textContent = "Passwords do not match!";
+                signupMsg.style.color = "#e23744";
+                signupMsg.style.display = 'block';
+                return;
+            }
+            signupMsg.textContent = "Sign up successful!";
+            signupMsg.style.color = "#27ae60";
+            signupMsg.style.display = 'block';
+            setTimeout(() => {
+                signupModal.style.display = 'none';
+                signupMsg.style.display = 'none';
+                signupForm.reset();
+            }, 1500);
+        };
+    });
+</script>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/zomato.png" alt="Zomato Logo">
+        </div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="order-online.html">Order Online</a>
+            <a href="add-restaurant.html" target="_blank">Add Restaurant</a>
+            <a href="#">Log In</a>
+            <a href="#">Sign Up</a>
+        </nav>
+    </header>
+    <div class="hero-section">
+        <h1>Order Food Online</h1>
+        <input type="text" id="searchInput" placeholder="Search for restaurant, cuisine or a dish">
+    </div>
+    <div class="restaurant-list" id="restaurantList">
+        <div class="restaurant-card">
+            <img src="images/restaurant1.png" alt="Pizza Palace">
+            <h3>Pizza Palace</h3>
+            <p>Italian, Pizza, Fast Food</p>
+            <p>⭐ 4.5 | ₹₹ | 30 min</p>
+            <button class="order-btn">Order Now</button>
+        </div>
+        <div class="restaurant-card">
+            <img src="images/restaurant2.png" alt="Spice Hub">
+            <h3>Spice Hub</h3>
+            <p>Indian, North Indian, Biryani</p>
+            <p>⭐ 4.2 | ₹₹ | 25 min</p>
+            <button class="order-btn">Order Now</button>
+        </div>
+        <div class="restaurant-card">
+            <img src="images/restaurant3.png" alt="Burger Town">
+            <h3>Burger Town</h3>
+            <p>Burgers, American, Fast Food</p>
+            <p>⭐ 4.0 | ₹ | 20 min</p>
+            <button class="order-btn">Order Now</button>
+        </div>
+        <!-- Add more restaurant cards as needed -->
+    </div>
+    <footer>
+        Copyright &copy; | All Rights Reserved
+    </footer>
+    <script>
+        // Simple search filter for restaurants
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            document.querySelectorAll('.restaurant-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
