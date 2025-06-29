@@ -534,66 +534,116 @@
     <div class="hero-section">
         <h1>Nightlife & Clubs</h1>
         <input type="text" id="searchInput" placeholder="Search for club, bar or a venue">
-    </div>
-    <div class="club-list" id="clubList">
-        <div class="club-card">
-            <img src="images/club1.png" alt="Sky Lounge">
-            <h3>Sky Lounge</h3>
-            <p>Rooftop Bar, Cocktails, Live DJ</p>
-            <p>⭐ 4.6 | ₹₹₹ | 2.5 km</p>
-            <button class="book-btn">Book Now</button>
+        <!-- ...existing code... -->
+        <div class="club-list" id="clubList">
+            <div class="club-card">
+                <img src="images/club1.png" alt="Sky Lounge">
+                <h3>Sky Lounge</h3>
+                <p>Rooftop Bar, Cocktails, Live DJ</p>
+                <p>⭐ 4.6 | ₹₹₹ | 2.5 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club2.png" alt="The Night Owl">
+                <h3>The Night Owl</h3>
+                <p>Club, Dance Floor, International Music</p>
+                <p>⭐ 4.4 | ₹₹ | 3.1 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club3.png" alt="Retro Bar">
+                <h3>Retro Bar</h3>
+                <p>Bar, Retro Music, Snacks</p>
+                <p>⭐ 4.2 | ₹ | 1.8 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <!-- Added more club cards below -->
+            <div class="club-card">
+                <img src="images/club1.png" alt="Urban Vibe">
+                <h3>Urban Vibe</h3>
+                <p>Lounge, Fusion Food, Live Band</p>
+                <p>⭐ 4.5 | ₹₹₹ | 2.2 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club2.png" alt="Pulse Lounge">
+                <h3>Pulse Lounge</h3>
+                <p>Modern Lounge, Signature Cocktails</p>
+                <p>⭐ 4.3 | ₹₹ | 2.9 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club3.png" alt="The Jazz Room">
+                <h3>The Jazz Room</h3>
+                <p>Jazz Bar, Tapas, Cozy Ambience</p>
+                <p>⭐ 4.7 | ₹₹₹ | 3.8 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club1.png" alt="Bollywood Beats">
+                <h3>Bollywood Beats</h3>
+                <p>Bollywood Music, Dance Floor, Snacks</p>
+                <p>⭐ 4.1 | ₹ | 1.2 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club2.png" alt="Chillax Lounge">
+                <h3>Chillax Lounge</h3>
+                <p>Chillout Lounge, Mocktails, Board Games</p>
+                <p>⭐ 4.0 | ₹ | 2.0 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club3.png" alt="Mystic Bar">
+                <h3>Mystic Bar</h3>
+                <p>Bar, Mystery Nights, Themed Drinks</p>
+                <p>⭐ 4.4 | ₹₹ | 2.7 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <div class="club-card">
+                <img src="images/club1.png" alt="Sunset Rooftop">
+                <h3>Sunset Rooftop</h3>
+                <p>Rooftop Lounge, Sunset View, Continental</p>
+                <p>⭐ 4.8 | ₹₹₹ | 4.1 km</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+            <!-- ...existing code... -->
         </div>
-        <div class="club-card">
-            <img src="images/club2.png" alt="The Night Owl">
-            <h3>The Night Owl</h3>
-            <p>Club, Dance Floor, International Music</p>
-            <p>⭐ 4.4 | ₹₹ | 3.1 km</p>
-            <button class="book-btn">Book Now</button>
-        </div>
-        <div class="club-card">
-            <img src="images/club3.png" alt="Retro Bar">
-            <h3>Retro Bar</h3>
-            <p>Bar, Retro Music, Snacks</p>
-            <p>⭐ 4.2 | ₹ | 1.8 km</p>
-            <button class="book-btn">Book Now</button>
-        </div>
-        <!-- Add more club cards as needed -->
-    </div>
-    <footer>
-        Copyright &copy; | All Rights Reserved
-    </footer>
-    <script>
-        // Simple search filter for clubs
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const filter = this.value.toLowerCase();
-            document.querySelectorAll('.club-card').forEach(card => {
-                const text = card.textContent.toLowerCase();
-                card.style.display = text.includes(filter) ? '' : 'none';
+        <footer>
+            Copyright &copy; | All Rights Reserved
+        </footer>
+        <script>
+            // Simple search filter for clubs
+            document.getElementById('searchInput').addEventListener('input', function() {
+                const filter = this.value.toLowerCase();
+                document.querySelectorAll('.club-card').forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = text.includes(filter) ? '' : 'none';
+                });
             });
-        });
-        // Optional: Book button alert
-        document.querySelectorAll('.book-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                alert('Booking feature coming soon!');
+            // Optional: Book button alert
+            document.querySelectorAll('.book-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('Booking feature coming soon!');
+                });
             });
-        });
-        // Booking modal logic
-        document.querySelectorAll('.book-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.getElementById('bookingModal').style.display = 'flex';
+            // Booking modal logic
+            document.querySelectorAll('.book-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('bookingModal').style.display = 'flex';
+                });
             });
-        });
-        document.getElementById('closeBooking').onclick = function() {
-            document.getElementById('bookingModal').style.display = 'none';
-        };
-        // Close modal when clicking outside content
-        window.addEventListener('click', function(event) {
-            const modal = document.getElementById('bookingModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-    </script>
+            document.getElementById('closeBooking').onclick = function() {
+                document.getElementById('bookingModal').style.display = 'none';
+            };
+            // Close modal when clicking outside content
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('bookingModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        </script>
 </body>
 
 </html>
