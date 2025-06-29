@@ -5,115 +5,284 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Investor Relations - Zomato Clone</title>
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,500,700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background-color: #fff;
+            background: linear-gradient(120deg, #fff7f7 60%, #fbeee6 100%);
             color: #333;
+            min-height: 100vh;
         }
         
         header {
-            background-color: #e23744;
-            padding: 20px 40px;
-            color: white;
+            background: #e23744;
+            padding: 32px 0 18px 0;
+            color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 24px rgba(226, 55, 68, 0.08);
+            position: relative;
+            z-index: 2;
+            animation: headerFadeIn 1s cubic-bezier(.77, 0, .18, 1) 0.1s both;
+        }
+        
+        @keyframes headerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         header h1 {
             margin: 0;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-shadow: 0 2px 12px #b81c2b33;
         }
         
         nav {
-            background-color: #f8f8f8;
-            padding: 10px 40px;
-            border-bottom: 1px solid #ddd;
+            background: #fff;
+            padding: 0 0 0 0;
+            box-shadow: 0 2px 12px rgba(226, 55, 68, 0.04);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 36px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         
         nav a {
-            margin-right: 20px;
+            display: inline-block;
+            padding: 18px 0;
+            margin: 0 18px;
             text-decoration: none;
             color: #e23744;
             font-weight: 500;
+            font-size: 1.08rem;
+            letter-spacing: 0.02em;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-bottom 0.2s, background 0.2s;
+        }
+        
+        nav a:hover,
+        nav a.active {
+            color: #b81c2b;
+            border-bottom: 2.5px solid #e23744;
+            background: #fff7f7;
         }
         
         main {
-            padding: 40px;
+            max-width: 950px;
+            margin: 40px auto 0 auto;
+            padding: 0 24px 40px 24px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 18px;
+            box-shadow: 0 8px 36px rgba(226, 55, 68, 0.10), 0 2px 12px rgba(0, 0, 0, 0.04);
+            animation: fadeIn 1.2s cubic-bezier(.77, 0, .18, 1) 0.2s both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
         
         section {
-            margin-bottom: 40px;
+            margin-bottom: 44px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #f3dede;
+        }
+        
+        section:last-child {
+            border-bottom: none;
         }
         
         h2 {
             color: #e23744;
             margin-bottom: 10px;
+            font-size: 1.45rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            text-shadow: 0 2px 8px #fbeee6;
         }
         
-        p {
-            line-height: 1.6;
+        .overview p {
+            font-size: 1.13rem;
             color: #444;
+            line-height: 1.7;
+            margin-top: 0;
         }
         
         .financials ul,
         .press ul {
-            padding-left: 20px;
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+        }
+        
+        .financials li,
+        .press li {
+            background: linear-gradient(90deg, #fff7f7 80%, #fbeee6 100%);
+            margin-bottom: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 1.08rem;
+            color: #333;
+            box-shadow: 0 2px 10px rgba(226, 55, 68, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        
+        .financials li:hover,
+        .press li:hover {
+            background: #fff0f0;
+            box-shadow: 0 4px 18px rgba(226, 55, 68, 0.09);
+        }
+        
+        .financials li::before {
+            content: "📄";
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        .press li::before {
+            content: "📰";
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        
+        .download-link {
+            color: #e23744;
+            text-decoration: underline;
+            font-weight: 500;
+            margin-left: 8px;
+            font-size: 0.98em;
+        }
+        
+        .download-link:hover {
+            color: #b81c2b;
+        }
+        
+        .contact-box {
+            background: linear-gradient(90deg, #fff7f7 80%, #fbeee6 100%);
+            border-radius: 10px;
+            padding: 22px 28px;
+            box-shadow: 0 2px 12px rgba(226, 55, 68, 0.06);
+            font-size: 1.08rem;
+            color: #333;
+            margin-top: 18px;
+        }
+        
+        .contact-box strong {
+            color: #e23744;
+        }
+        
+        @media (max-width: 700px) {
+            main {
+                padding: 0 6vw 40px 6vw;
+            }
+            nav {
+                gap: 10px;
+            }
+            .financials li,
+            .press li,
+            .contact-box {
+                font-size: 1rem;
+                padding: 12px 10px;
+            }
         }
         
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: #f1f1f1;
-            color: #666;
-            font-size: 0.9rem;
+            padding: 24px 0 18px 0;
+            background: #f8f8f8;
+            color: #777;
+            font-size: 1rem;
             border-top: 1px solid #ddd;
+            letter-spacing: 0.03em;
+            margin-top: 40px;
         }
     </style>
 </head>
 
 <body>
-
     <header>
         <h1>Investor Relations</h1>
     </header>
-
     <nav>
-        <a href="/index.html">Home</a>
-        <a href="#">Financial Reports</a>
-        <a href="#">Press Releases</a>
-        <a href="#">Shareholder Info</a>
-        <a href="#">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="#financials" class="active">Financial Reports</a>
+        <a href="#press">Press Releases</a>
+        <a href="#shareholder">Shareholder Info</a>
+        <a href="#contact">Contact</a>
     </nav>
-
     <main>
         <section class="overview">
             <h2>Company Overview</h2>
-            <p>Zomato is one of India’s leading food tech platforms, delivering a wide range of food and beverage solutions. Our mission is to ensure everyone eats better, one meal at a time.</p>
+            <p>
+                Zomato is one of India’s leading food tech platforms, delivering a wide range of food and beverage solutions. Our mission is to ensure everyone eats better, one meal at a time. We are committed to transparency, innovation, and sustainable growth for our
+                stakeholders.
+            </p>
         </section>
-
-        <section class="financials">
+        <section class="financials" id="financials">
             <h2>Financial Reports</h2>
             <ul>
-                <li>Q1 2024 Earnings Report (PDF)</li>
-                <li>FY 2023 Annual Report (PDF)</li>
-                <li>Investor Presentation - March 2024</li>
+                <li>
+                    Q1 2024 Earnings Report
+                    <a class="download-link" href="#" title="Download Q1 2024 Earnings Report (PDF)">Download PDF</a>
+                </li>
+                <li>
+                    FY 2023 Annual Report
+                    <a class="download-link" href="#" title="Download FY 2023 Annual Report (PDF)">Download PDF</a>
+                </li>
+                <li>
+                    Investor Presentation - March 2024
+                    <a class="download-link" href="#" title="Download Investor Presentation (PDF)">Download PDF</a>
+                </li>
             </ul>
         </section>
-
-        <section class="press">
+        <section class="press" id="press">
             <h2>Press Releases</h2>
             <ul>
-                <li>Zomato launches new cloud kitchen services - May 2024</li>
-                <li>Partnership with 10,000+ restaurants - Jan 2024</li>
-                <li>Expands into tier-2 cities - Sept 2023</li>
+                <li>
+                    Zomato launches new cloud kitchen services - <strong>May 2024</strong>
+                </li>
+                <li>
+                    Partnership with 10,000+ restaurants - <strong>Jan 2024</strong>
+                </li>
+                <li>
+                    Expands into tier-2 cities - <strong>Sept 2023</strong>
+                </li>
             </ul>
         </section>
+        <section id="shareholder">
+            <h2>Shareholder Information</h2>
+            <div class="contact-box">
+                <strong>Registrar & Transfer Agent:</strong><br> KFin Technologies Ltd.<br> Email: <a href="mailto:investor@zomatoclone.com" style="color:#e23744;">investor@zomatoclone.com</a><br> Phone: +91-22-1234-5678
+            </div>
+        </section>
+        <section id="contact">
+            <h2>Contact Investor Relations</h2>
+            <div class="contact-box">
+                <strong>Investor Relations Team</strong><br> Email: <a href="mailto:ir@zomatoclone.com" style="color:#e23744;">ir@zomatoclone.com</a><br> Phone: +91-22-8765-4321<br> Address: Zomato Clone HQ, 123 Food Lane, New Delhi, India
+            </div>
+        </section>
     </main>
-
     <footer>
         &copy; 2024 Zomato Clone. All Rights Reserved.
     </footer>
-
 </body>
 
 </html>
